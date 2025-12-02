@@ -342,18 +342,23 @@
       <p style="margin:0 0 10px 0; color:var(--muted);">Haz click en cualquier foto para verla más grande.</p>
 
       <div class="grid" role="list" aria-label="Galería de fotos">
-        <!-- Sustituye las rutas por tus imágenes en la carpeta images/ -->
-        <img src="images/photo1.jpg" alt="Momento especial 1" tabindex="0" data-full="images/photo1.jpg">
-        <img src="images/photo2.jpg" alt="Momento especial 2" tabindex="0" data-full="images/photo2.jpg">
-        <img src="images/photo3.jpg" alt="Momento especial 3" tabindex="0" data-full="images/photo3.jpg">
-        <img src="images/photo4.jpg" alt="Momento especial 4" tabindex="0" data-full="images/photo4.jpg">
-        <img src="images/photo5.jpg" alt="Momento especial 5" tabindex="0" data-full="images/photo5.jpg">
-        <img src="images/photo6.jpg" alt="Momento especial 6" tabindex="0" data-full="images/photo6.jpg">
-        <img src="images/photo7.jpg" alt="Momento especial 7" tabindex="0" data-full="images/photo7.jpg">
-        <img src="images/photo8.jpg" alt="Momento especial 8" tabindex="0" data-full="images/photo8.jpg">
-        <img src="images/photo9.jpg" alt="Momento especial 9" tabindex="0" data-full="images/photo9.jpg">
-        <img src="images/photo10.jpg" alt="Momento especial 10" tabindex="0" data-full="images/photo10.jpg">
-      </div>
+
+  <img src="images/photo1.jpg" alt="Momento especial 1" tabindex="0" data-full="images/photo1.jpg">
+  <img src="images/photo2.jpg" alt="Momento especial 2" tabindex="0" data-full="images/photo2.jpg">
+  <img src="images/photo3.jpg" alt="Momento especial 3" tabindex="0" data-full="images/photo3.jpg">
+  <img src="images/photo4.jpg" alt="Momento especial 4" tabindex="0" data-full="images/photo4.jpg">
+  <img src="images/photo5.jpg" alt="Momento especial 5" tabindex="0" data-full="images/photo5.jpg">
+  <img src="images/photo6.jpg" alt="Momento especial 6" tabindex="0" data-full="images/photo6.jpg">
+  <img src="images/photo7.jpg" alt="Momento especial 7" tabindex="0" data-full="images/photo7.jpg">
+  <img src="images/photo8.jpg" alt="Momento especial 8" tabindex="0" data-full="images/photo8.jpg">
+  <img src="images/photo9.jpg" alt="Momento especial 9" tabindex="0" data-full="images/photo9.jpg">
+  <img src="images/photo10.jpg" alt="Momento especial 10" tabindex="0" data-full="images/photo10.jpg">
+  <img src="images/photo11.jpg" alt="Momento especial 11" tabindex="0" data-full="images/photo11.jpg">
+  <img src="images/photo12.jpg" alt="Momento especial 12" tabindex="0" data-full="images/photo12.jpg">
+  <img src="images/photo13.jpg" alt="Momento especial 13" tabindex="0" data-full="images/photo13.jpg">
+  <img src="images/photo14.jpg" alt="Momento especial 14" tabindex="0" data-full="images/photo14.jpg">
+
+</div>
     </section>
 
     <!-- lightbox -->
@@ -363,19 +368,21 @@
     </div>
 
     <!-- LETTER -->
-    <section class="letter-wrap" aria-labelledby="cartaTitle">
-      <h3 id="cartaTitle" style="margin:0 0 10px 0; color:var(--accent-2)">Una carta para ti</h3>
-      <p style="margin:0 0 12px 0; color:var(--muted)">Esto sirve para editarte la cartita y abrirla <3</p>
-      <button class="open-letter-btn" id="openLetter">Abrir carta ✉️</button>
+   <section class="letter-wrap" aria-labelledby="cartaTitle">
+  <h3 id="cartaTitle" style="margin:0 0 10px 0; color:var(--accent-2)">Una carta para ti</h3>
+  <p style="margin:0 0 12px 0; color:var(--muted)">Haz click en el sobre para abrir mi cartita 💌</p>
 
-      <div style="margin-top:12px; color:var(--muted); font-size:0.92rem;">
-        TEAMOOOOO TU CARTITA:
-      </div>
+  <div style="text-align:center; margin-top:20px;">
+    <img id="sobre" src="https://cdn-icons-png.flaticon.com/512/561/561127.png"
+         alt="Sobre" 
+         style="width:120px; cursor:pointer; transition: transform .3s;">
+  </div>
 
-      <div id="renderedLetter" class="letter-preview" aria-live="polite" style="display:none; margin-top:14px;">
-        <!-- Aquí se mostrará la carta enviada -->
-      </div>
-    </section>
+  <div id="cartaAbierta" class="letter-preview" 
+       style="display:none; margin-top:20px; font-size:1.2rem; text-align:center;">
+    te amooo
+  </div>
+</section>
 
     <footer>
       <div>Hecho con TODO MI AMORSITOO ❤️<code>images/</code></div>
@@ -524,6 +531,7 @@
   </script>
 </body>
 </html>
+
 
 
 
