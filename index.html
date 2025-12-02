@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Para ti — Una sorpresa</title>
+
+  <!-- Tip: cambia las rutas images/photo1.jpg ... photo10.jpg por tus fotos -->
+  <!-- Si quieres usar otro nombre, reemplaza en el bloque <section class="gallery"> -->
+  <style>
+    :root{
+      --bg:#fff0f6;
+      --card:#ffeef8;
+      --accent:#ff88c2;
+      --accent-2:#ff6fa8;
+      --text:#3b0b2e;
+      --muted:#7a445f;
+      --glass: rgba(255,255,255,0.6);
+      --radius:18px;
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background: linear-gradient(180deg,var(--bg), #fff );
+      color:var(--text);
+      line-height:1.45;
+      padding:24px;
+    }
+
+    /* Page container */
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+      border-radius:24px;
+      box-shadow: 0 8px 30px rgba(200,120,160,0.12);
+      backdrop-filter: blur(6px);
+    }
+
+    header{
+      text-align:center;
+      margin-bottom:20px;
+    }
+    h1{
+      font-size:2.2rem;
+      margin:6px 0;
+      letter-spacing: -0.02em;
+      color:var(--accent-2);
+    }
+    p.lead{
+      margin:0 auto;
+      max-width:720px;
+      color:var(--muted);
+      font-size:1rem;
+    }
+
+    /* Intro card */
+    .intro{
+      margin:22px 0;
+      background: linear-gradient(135deg,var(--card), #fff);
+      border-radius:16px;
+      padding:20px;
+      box-shadow: 0 6px 18px rgba(255,120,160,0.06);
+      display:flex;
+      gap:16px;
+      align-items:center;
+    }
+    .intro .emoji{
+      font-size:48px;
+      padding:8px;
+      width:84px;
+      height:84px;
+      border-radius:14px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background: linear-gradient(180deg,#fff,#ffeef8);
+      box-shadow: 0 6px 12px rgba(255,140,180,0.08);
+    }
+    .intro .text h2{
+      margin:0;
+      color:var(--accent-2);
+      font-size:1.2rem;
+    }
+    .intro .text p{
+      margin:8px 0 0;
+      color:var(--muted);
+    }
+
+    /* Reasons grid */
+    .reasons{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap:14px;
+      margin:20px 0;
+    }
+    .reason{
+      background:var(--glass);
+      padding:14px;
+      border-radius:14px;
+      border: 1px solid rgba(255,150,190,0.12);
+      box-shadow: 0 6px 12px rgba(255,120,160,0.05);
+      min-height:110px;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .reason h3{
+      margin:0;
+      color:var(--accent);
+      font-size:1rem;
+    }
+    .reason p{
+      margin:8px 0 0;
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    /* Gallery */
+    .gallery{
+      margin:18px 0;
+    }
+    .gallery h3{
+      margin:4px 0 12px 0;
+      color:var(--accent-2);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(120px,1fr));
+      gap:10px;
+    }
+    .grid img{
+      width:100%;
+      display:block;
+      border-radius:12px;
+      height:120px;
+      object-fit:cover;
+      cursor:pointer;
+      border: 3px solid rgba(255,200,230,0.6);
+      transition: transform .18s ease, box-shadow .18s ease;
+    }
+    .grid img:focus,
+    .grid img:hover{ transform: translateY(-4px); box-shadow: 0 12px 30px rgba(200,100,160,0.12); outline:none; }
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background: rgba(20,6,20,0.6);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:1000;
+      padding:20px;
+    }
+    .lightbox.open{ display:flex; }
+    .lightbox img{
+      max-width:95%;
+      max-height:90%;
+      border-radius:10px;
+      box-shadow: 0 20px 60px rgba(20,6,20,0.6);
+    }
+    .light-close{
+      position:fixed;
+      top:18px;
+      right:18px;
+      background:rgba(255,255,255,0.9);
+      border-radius:12px;
+      padding:6px 10px;
+      cursor:pointer;
+      font-weight:700;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+    }
+
+    /* Letter area */
+    .letter-wrap{
+      margin:26px 0 8px 0;
+      padding:18px;
+      background: linear-gradient(180deg,#fff,#fff8fb);
+      border-radius:18px;
+      border:1px solid rgba(255,180,200,0.18);
+    }
+    .open-letter-btn{
+      display:inline-block;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white;
+      padding:10px 16px;
+      border-radius:12px;
+      cursor:pointer;
+      border:none;
+      font-weight:600;
+      box-shadow: 0 10px 24px rgba(255,90,150,0.12);
+    }
+    .open-letter-btn:active{ transform: translateY(1px); }
+
+    /* Modal for composing */
+    .modal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      background: rgba(20,6,20,0.5);
+      z-index:1200;
+      padding:20px;
+    }
+    .modal.open{ display:flex; }
+    .modal-card{
+      width:100%;
+      max-width:720px;
+      background: linear-gradient(180deg,#fff,#fff7fb);
+      border-radius:18px;
+      padding:18px;
+      box-shadow: 0 20px 60px rgba(120,40,80,0.12);
+      border:1px solid rgba(255,150,190,0.12);
+    }
+    .modal-card h3{ margin:0 0 8px 0; color:var(--accent-2); }
+    .modal-card textarea{
+      width:100%;
+      min-height:180px;
+      border-radius:12px;
+      border:1px solid rgba(200,160,180,0.16);
+      padding:12px;
+      resize:vertical;
+      font-size:1rem;
+      font-family: inherit;
+    }
+    .modal-actions{
+      margin-top:12px;
+      display:flex;
+      gap:8px;
+      justify-content:flex-end;
+    }
+    .btn{
+      padding:8px 12px;
+      border-radius:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:600;
+    }
+    .btn.ghost{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(120,80,100,0.06);
+    }
+    .btn.primary{
+      background:var(--accent-2);
+      color:white;
+      box-shadow: 0 10px 28px rgba(255,100,165,0.12);
+    }
+
+    /* Rendered letter preview */
+    .letter-preview{
+      margin-top:14px;
+      background: linear-gradient(180deg,#fffafc,#fff0f6);
+      padding:18px;
+      border-radius:12px;
+      border:1px solid rgba(255,160,190,0.12);
+      min-height:140px;
+      white-space:pre-wrap;
+      font-family: Georgia, "Times New Roman", serif;
+      color: #4a1631;
+      font-size:1rem;
+    }
+
+    /* Footer small text */
+    footer{
+      text-align:center;
+      margin-top:18px;
+      color:var(--muted);
+      font-size:0.9rem;
+      padding-bottom:6px;
+    }
+
+    @media (max-width:520px){
+      .intro{ flex-direction:column; align-items:flex-start; }
+      .intro .emoji{ width:72px; height:72px; font-size:40px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap" role="main">
+    <header>
+      <div style="font-size:20px; color:var(--accent);">Una sorpresa para ti</div>
+      <h1>Te quiero — hoy y siempre</h1>
+      <p class="lead">LINDAAA te hize esta web para que veas cuanto te amo y recordar momentos lindix</p>
+    </header>
+
+    <!-- INTRO -->
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="emoji" aria-hidden="true">💖</div>
+      <div class="text">
+        <h2 id="intro-title">Para mi niña especial</h2>
+        <p>
+          Eres la niña más especial que pude conocer. Miamo que sepas que cada día que paso a tu lado me das la           lucecita que me hace falta preciosa. Y aqui tiene mi rasonsita para amarte lindita :D
+        </p>
+      </div>
+    </section>
+
+    <!-- REASONS -->
+    <section aria-labelledby="razones">
+      <h2 id="razones" style="display:none">Razones por las que te amo</h2>
+      <div class="reasons" role="list">
+        <article class="reason" role="listitem" aria-label="Razón 1">
+          <div>
+            <h3>Tus ojitos</h3>
+            <p>Hacen que me enamore cada vez que me miro en ellos.</p>
+          </div>
+        </article>
+
+        <article class="reason" role="listitem" aria-label="Razón 2">
+          <div>
+            <h3>Tu cuerpo</h3>
+            <p>El cuerpo mas perfecto que jamas pude pedir en una chica.</p>
+          </div>
+        </article>
+
+        <article class="reason" role="listitem" aria-label="Razón 3">
+          <div>
+            <h3>Tu risa</h3>
+            <p>Lo mas tierno que escuché en el mundo despues de tus teamos.</p>
+          </div>
+        </article>
+
+        <article class="reason" role="listitem" aria-label="Razón 4">
+          <div>
+            <h3>Tu personalidad</h3>
+            <p>Siempre me pareciste y me pareceras lo mas cute, valiente, fuerte y precioso que conocí nunca.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery" aria-labelledby="galeriaTitle">
+      <h3 id="galeriaTitle">Nuestros momentitos espesiales</h3>
+      <p style="margin:0 0 10px 0; color:var(--muted);">Haz click en cualquier foto para verla más grande.</p>
+
+      <div class="grid" role="list" aria-label="Galería de fotos">
+        <!-- Sustituye las rutas por tus imágenes en la carpeta images/ -->
+        <img src="images/photo1.jpg" alt="Momento especial 1" tabindex="0" data-full="images/photo1.jpg">
+        <img src="images/photo2.jpg" alt="Momento especial 2" tabindex="0" data-full="images/photo2.jpg">
+        <img src="images/photo3.jpg" alt="Momento especial 3" tabindex="0" data-full="images/photo3.jpg">
+        <img src="images/photo4.jpg" alt="Momento especial 4" tabindex="0" data-full="images/photo4.jpg">
+        <img src="images/photo5.jpg" alt="Momento especial 5" tabindex="0" data-full="images/photo5.jpg">
+        <img src="images/photo6.jpg" alt="Momento especial 6" tabindex="0" data-full="images/photo6.jpg">
+        <img src="images/photo7.jpg" alt="Momento especial 7" tabindex="0" data-full="images/photo7.jpg">
+        <img src="images/photo8.jpg" alt="Momento especial 8" tabindex="0" data-full="images/photo8.jpg">
+        <img src="images/photo9.jpg" alt="Momento especial 9" tabindex="0" data-full="images/photo9.jpg">
+        <img src="images/photo10.jpg" alt="Momento especial 10" tabindex="0" data-full="images/photo10.jpg">
+      </div>
+    </section>
+
+    <!-- lightbox -->
+    <div id="lightbox" class="lightbox" aria-hidden="true" role="dialog" aria-label="Vista de imagen grande">
+      <button class="light-close" id="closeLight" aria-label="Cerrar imagen">✕</button>
+      <img id="lightboxImg" src="" alt="Foto ampliada">
+    </div>
+
+    <!-- LETTER -->
+    <section class="letter-wrap" aria-labelledby="cartaTitle">
+      <h3 id="cartaTitle" style="margin:0 0 10px 0; color:var(--accent-2)">Una carta para ti</h3>
+      <p style="margin:0 0 12px 0; color:var(--muted)">Esto sirve para editarte la cartita y abrirla <3</p>
+      <button class="open-letter-btn" id="openLetter">Abrir carta ✉️</button>
+
+      <div style="margin-top:12px; color:var(--muted); font-size:0.92rem;">
+        TEAMOOOOO TU CARTITA:
+      </div>
+
+      <div id="renderedLetter" class="letter-preview" aria-live="polite" style="display:none; margin-top:14px;">
+        <!-- Aquí se mostrará la carta enviada -->
+      </div>
+    </section>
+
+    <footer>
+      <div>Hecho con TODO MI AMORSITOO ❤️<code>images/</code></div>
+    </footer>
+  </main>
+
+  <!-- Modal: compose letter -->
+  <div id="modal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <h3>Escribe tu carta</h3>
+      <p style="margin:0 0 8px 0; color:var(--muted)">Escribe aquí el mensaje que quieras dedicarle — puede ser largo o corto.</p>
+      <textarea id="letterText" placeholder="Mi amor, ..."></textarea>
+      <div class="modal-actions">
+        <button class="btn ghost" id="cancelCompose">Cancelar</button>
+        <button class="btn primary" id="sendLetter">Mostrar carta</button>
+      </div>
+
+      <div id="previewArea" style="display:none">
+        <h4 style="margin:12px 0 6px 0; color:var(--accent)">Vista previa</h4>
+        <div id="previewText" class="letter-preview"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // LIGHTBOX
+    const gridImgs = document.querySelectorAll('.grid img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeLight = document.getElementById('closeLight');
+
+    gridImgs.forEach(img => {
+      img.addEventListener('click', () => openLight(img.dataset.full, img.alt));
+      img.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLight(img.dataset.full, img.alt); }});
+    });
+
+    function openLight(src, alt){
+      lightboxImg.src = src;
+      lightboxImg.alt = alt || 'Foto';
+      lightbox.classList.add('open');
+      lightbox.setAttribute('aria-hidden','false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){
+      lightbox.classList.remove('open');
+      lightbox.setAttribute('aria-hidden','true');
+      lightboxImg.src = '';
+      document.body.style.overflow = '';
+    }
+    closeLight.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') closeLightbox(); });
+
+    // MODAL / LETTER
+    const openLetterBtn = document.getElementById('openLetter');
+    const modal = document.getElementById('modal');
+    const cancelCompose = document.getElementById('cancelCompose');
+    const sendLetter = document.getElementById('sendLetter');
+    const letterText = document.getElementById('letterText');
+    const renderedLetter = document.getElementById('renderedLetter');
+    const previewArea = document.getElementById('previewArea');
+    const previewText = document.getElementById('previewText');
+
+    openLetterBtn.addEventListener('click', () => {
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      letterText.focus();
+    });
+
+    cancelCompose.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') { if(modal.classList.contains('open')) closeModal(); }});
+
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      previewArea.style.display = 'none';
+      previewText.textContent = '';
+      // keep textarea text so you can resume
+    }
+
+    sendLetter.addEventListener('click', () => {
+      const text = letterText.value.trim();
+      if(!text){
+        // show a small feedback
+        letterText.focus();
+        letterText.style.outline = '2px solid rgba(255,110,160,0.35)';
+        setTimeout(()=> letterText.style.outline = '', 900);
+        return;
+      }
+
+      // Render the letter nicely (simple formatting)
+      const date = new Date();
+      const formattedDate = date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
+
+      const letterHtml = `
+        <div style="margin-bottom:8px; color: #6b2943; font-weight:700;">Para mi ❤️</div>
+        <div style="font-size:0.95rem; color:#4a1631; white-space:pre-wrap;">${escapeHtml(text)}</div>
+        <div style="margin-top:12px; text-align:right; color:#7a445f; font-size:0.92rem;">Con todo mi amor — ${formattedDate}</div>
+      `.trim();
+
+      renderedLetter.innerHTML = letterHtml;
+      renderedLetter.style.display = 'block';
+
+      // Also show preview inside modal briefly, then close
+      previewText.innerHTML = letterHtml;
+      previewArea.style.display = 'block';
+
+      // Close modal after a short delay so user sees preview (instant for UX)
+      setTimeout(() => {
+        closeModal();
+      }, 300);
+    });
+
+    // small helper to avoid injection
+    function escapeHtml(str){
+      return str
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#39;');
+    }
+
+    // Accessibility: trap focus inside modal when open (simple)
+    document.addEventListener('focus', function(event){
+      if(modal.classList.contains('open') && !modal.contains(event.target)){
+        event.stopPropagation();
+        letterText.focus();
+      }
+    }, true);
+
+    // If images are missing, show a simple placeholder (optional)
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.grid img').forEach(img=>{
+        img.addEventListener('error', () => {
+          img.src = 'data:image/svg+xml;utf8,' + encodeURIComponent(
+            `<svg xmlns='http://www.w3.org/2000/svg' width='800' height='600'>
+               <rect fill='#fff0f6' width='100%' height='100%'/>
+               <text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='28' fill='#ff8fb3' font-family='Arial'>Foto no encontrada</text>
+             </svg>`
+          );
+        });
+      });
+    });
+  </script>
+</body>
+</html>
